@@ -4,12 +4,8 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
+# About
 
-### More Information
+I have a BSc degree in Physics and finishing my masters in Math. Sometimes people give me money to be data scientist.
 
-A place to include any other types of information that you'd like to include about yourself.
 
-### Contact me
-
-[email@domain.com](mailto:email@domain.com)
