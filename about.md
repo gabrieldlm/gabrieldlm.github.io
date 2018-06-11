@@ -4,7 +4,13 @@ title: About
 permalink: /about/
 ---
 
-I have a BSc degree in Physics and I'm finishing my masters in Math. Sometimes people give me money to be data scientist.
+## About me
+
+* BSc Physics    
+* MSc Mathematics 
+* PhD student in Particle Physics
+
+Sometimes people give me money to do data science and machine learning tricks.
 
 ## Contact me
 [gabrieldlm@protonmail.com](mailto:gabrieldlm@protonmail.com)
