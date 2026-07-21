@@ -18,7 +18,7 @@ $ lake build
 Build completed successfully (8668 jobs)
 ```
 
-Some point that I'll just leave here:
+Some points that I'll just leave here:
 1. The proof relies on Schauder's fixed point theorem, which isn't in Mathlib core so I pointed to [this lean eval submission](https://github.com/leanprover/lean-eval-submissions/issues/752) and hoped for the best.
 2. Claude Opus 4.8 was used to validate the results and stated that the proof is sound, only complaining about "cosmetic linter/deprecation warnings" even after Codex solved it. 
 3. The main theorem is [__caratheodory_exists__](https://github.com/gabrieldlm/caratheodory-ode-lean/blob/main/CaratheodoryODE.lean#L1367)
