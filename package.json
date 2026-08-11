@@ -1,6 +1,24 @@
 {
+  "name": "gabrieldlm.github.io",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "npm run build:client && npm run build:site",
+    "build:client": "tsc -p tsconfig.client.json",
+    "build:site": "tsc -p tsconfig.build.json && node build/build.js",
+    "serve": "npx --yes serve dist -l 8080",
+    "format": "prettier . --write"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "js-yaml": "^4.1.0",
+    "katex": "^0.16.11",
+    "marked": "^14.1.2"
+  },
   "devDependencies": {
-    "@shopify/prettier-plugin-liquid": "^1.10.0",
-    "prettier": "^3.8.0"
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.7.5",
+    "prettier": "^3.8.0",
+    "typescript": "^5.6.3"
   }
 }

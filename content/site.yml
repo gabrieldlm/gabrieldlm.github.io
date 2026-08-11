@@ -1,0 +1,19 @@
+# Site-wide configuration for the static site generator in src/build/.
+# Edit this file to change your name, contact links, and footer text.
+
+name: Gabriel de Lima Monteiro
+title: Gabriel de Lima Monteiro
+email: g.delimamonteiro@gmail.com
+x_username: gabriel_dlm
+github_username: gabrieldlm
+scholar_userid: 8HRUT1oAAAAJ
+url: https://gabrieldlm.github.io
+description: Physicist turned (applied) mathematician.
+
+nav:
+  - title: about
+    href: /
+  - title: publications
+    href: /publications/
+  - title: blog
+    href: /blog/

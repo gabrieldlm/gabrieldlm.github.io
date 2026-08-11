@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "None",
+    "moduleResolution": "Classic",
+    "resolveJsonModule": false,
+    "lib": ["ES2022", "DOM"],
+    "outDir": "assets/js"
+  },
+  "include": ["src/client/**/*.ts"]
+}
