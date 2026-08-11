@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Using GPT 5.6 Sol to formalize Caratheodory's existence theorem in Lean4 — Gabriel de Lima Monteiro</title>
+<meta name="description" content="a (personal) first try in using an LLM to formalize a result">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/katex.min.css">
+<script>(function(){try{var t=localStorage.getItem("theme");if(t==="dark"||t==="light"){document.documentElement.setAttribute("data-theme",t);}}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header">
+<a class="site-name" href="/">Gabriel de Lima Monteiro</a>
+<nav class="site-nav"><a href="/">about</a> / <a href="/publications/">publications</a> / <a href="/blog/">blog</a></nav>
+<button id="theme-toggle" type="button" aria-label="Toggle dark mode">◐</button>
+</header>
+<main class="site-main">
+<article>
+<h1>Using GPT 5.6 Sol to formalize Caratheodory's existence theorem in Lean4</h1>
+<p class="post-meta">July 21, 2026 &middot; GPT, lean</p>
+<p>For a while I&#39;ve been flirting with the idea to take a shot at Lean 4 and with the most recent <a href="https://x.com/__alpoge__/status/2079028340955197566">machine victory</a> I went on searching for the open tab containing <a href="https://www.youtube.com/watch?v=I2zaPoj3G50">Alex Kontorovich&#39;s very nice and brief introduction</a>. After reading through Lean&#39;s and Mathlib&#39;s documentation the decision to be made was to choose some result that wasn&#39;t in Mathlib code to see how well GPT could do it.</p>
+<p>Considering that Picard–Lindelöf was already formalized, I decided to try Caratheodory&#39;s theorem which, in short, guarantees the existence of a solution for the ODE <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>x</mi><mo>˙</mo></mover><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mo>=</mo><mi>f</mi><mo stretchy="false">(</mo><mi>t</mi><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\dot x(t) = f(t,x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">x</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1111em;"><span class="mord">˙</span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="mopen">(</span><span class="mord mathnormal">t</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>, when <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi></mrow><annotation encoding="application/x-tex">f</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.1076em;">f</span></span></span></span> is measurable in <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span>, for fixed <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span>, and continuous in <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span>. After setting up the <a href="https://github.com/gabrieldlm/caratheodory-ode-lean">project</a> the problem was described in the <code>program.md</code> file, which contained the overall description of what was needed from the agent (explicitly stating that the code should compile and without any sorrys).</p>
+<p>To test the model&#39;s Lean proficiency I took a screenshot of the theorem and proof from Hale&#39;s Ordinary Differential Equation book, asked Gemini to produce a markdown/LaTeX version and saved as <code>caratheodory.md</code>. After firing up, Codex was instructed to solve the problem described in <code>program.md</code> which he eventually did in 14 minutes and 10 seconds (GPT 5.6 Sol on High). The lake build command ran without errors, although with a plethora of warnings about deprecated functions and unused variables. Those warnings were resolved with two more prompts, one per warning type, resulting in a clean build:</p>
+<pre><code>$ lake build
+Build completed successfully (8668 jobs)
+</code></pre>
+<p>Some points that I&#39;ll just leave here:</p>
+<ol>
+<li>The proof relies on Schauder&#39;s fixed point theorem, which isn&#39;t in Mathlib core so I pointed to <a href="https://github.com/leanprover/lean-eval-submissions/issues/752">this lean eval submission</a> and hoped for the best.</li>
+<li>Claude Opus 4.8 was used to validate the results and stated that the proof is sound, only complaining about &quot;cosmetic linter/deprecation warnings&quot; even after Codex solved it.</li>
+<li>The main theorem is <a href="https://github.com/gabrieldlm/caratheodory-ode-lean/blob/main/CaratheodoryODE.lean#L1367"><strong>caratheodory_exists</strong></a></li>
+</ol>
+
+</article>
+</main>
+<footer class="site-footer">
+<p><a href="mailto:g.delimamonteiro@gmail.com" target="_blank" rel="noopener noreferrer">email</a> / <a href="https://x.com/gabriel_dlm" target="_blank" rel="noopener noreferrer">x</a> / <a href="https://github.com/gabrieldlm" target="_blank" rel="noopener noreferrer">github</a> / <a href="https://scholar.google.com/citations?user=8HRUT1oAAAAJ" target="_blank" rel="noopener noreferrer">google scholar</a></p>
+
+</footer>
+<script src="/assets/js/theme-toggle.js" defer></script>
+</body>
+</html>
