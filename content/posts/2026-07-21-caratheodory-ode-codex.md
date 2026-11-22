@@ -1,6 +1,6 @@
 ---
 title: Using GPT 5.6 Sol to formalize Caratheodory's existence theorem in Lean4
-description: a (personal) first try in using an LLM to formalize a result
+description: a (personal) first try in using a LLM to formalize a result
 tags: [GPT, lean]
 date: 2026-07-21
 ---
